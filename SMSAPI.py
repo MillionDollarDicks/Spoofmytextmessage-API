@@ -29,7 +29,7 @@ tonumber = raw_input('\n'+colours.bold+colours.purple+'Enter recipients number: 
 os.system('clear')
 print(colours.underline+colours.bold+colours.blue+'From: '+fromnumber+colours.end)
 print(colours.underline+colours.bold+colours.blue+'To: '+tonumber+colours.end)
-message = raw_input('\n'+colours.bold+colours.purple+'Enter message: '+colours.end).replace("'","\'").replace('"','\"')
+message = raw_input('\n'+colours.bold+colours.purple+'Enter message: '+colours.end)
 os.system('clear')
 
 
