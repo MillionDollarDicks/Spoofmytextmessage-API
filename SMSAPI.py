@@ -15,8 +15,8 @@ class colours:
     pink='\033[95m'
     end = '\033[0m'
 
-email = 'ENTER EMAIL ADDRESS HERE'
-pw = 'ENTER PASSWORD HERE'
+email = 'ENTER_EMAIL'
+pw = 'ENTER_PASSWORD'
 tocountry = '+44'
 fromcountry = '+44'
 os.system('clear')
@@ -29,7 +29,7 @@ tonumber = raw_input('\n'+colours.bold+colours.purple+'Enter recipients number: 
 os.system('clear')
 print(colours.underline+colours.bold+colours.blue+'From: '+fromnumber+colours.end)
 print(colours.underline+colours.bold+colours.blue+'To: '+tonumber+colours.end)
-message = raw_input('\n'+colours.bold+colours.purple+'Enter message: '+colours.end)
+message = raw_input('\n'+colours.bold+colours.purple+'Enter message: '+colours.end)#.replace("'","\'").replace('"','\"')
 os.system('clear')
 
 
@@ -41,8 +41,8 @@ data = str(r.json())
 
 secureid = (str(data)).split("secureid': u'")[1].split("', u'verifycode")[0]
 id = (str(data)).split("u'id': u'")[1].split("', u'online")[0]
-print('\n* SecureID - '+secureid)
-print('\n* ID - '+id)
+print(colours.bold+colours.blue+'\n* SecureID - '+colours.end+colours.bold+colours.green+secureid+colours.end)
+print(colours.bold+colours.blue+'\n* ID - '+colours.end+colours.bold+colours.green+id+colours.end)
 
 print('\n'+"Pulling unique identifier for SMS codes to send from spoofmytextmessage.com...")
 url = ('https://api.spoofmytextmessage.com/2.0/index.php?task=getCodes&mid='+id+'&email='+email+'&secureid='+secureid)
@@ -51,18 +51,19 @@ data = str(r.json())
 #print(data) 
 
 if "count': 0" in data: 
-	print("It does not appear you have any valid credits on spoofmytextmessage.com. Purchase more.")
-	print('\nhttps://www.spoofmytextmessage.com/my')
+	print(colours.red+"It does not appear you have any valid credits on spoofmytextmessage.com. Purchase more."+colours.end)
 	ans = raw_input('\nGo to website (y/n); ')
 	if ans == 'y':
 		os.system('firefox https://www.spoofmytextmessage.com/my')
+		os.system('clear')
+		quit()
 	else:
 		os.system('clear')
 		quit()
 		
 else:
         code = data.split("messages': [u'")[1].split("', u'")[0].replace('\']}]','')
-	print("\n* Unique Identifier - "+code)
+	print(colours.bold+colours.blue+"\n* Unique Identifier - "+colours.end+colours.bold+colours.green+code+colours.end)
 
 	print("\nCrafting the SMS message and sending through spoofmytextmessage.com...")
 	payload = ('&non=number&fromnumber='+fromnumber+'&to='+tonumber+'&tocountry='+tocountry+'&fromcountry='+fromcountry+
@@ -74,6 +75,5 @@ else:
 	data = str(r.json())
 	print('\n'+data)
 	
-
 
 
